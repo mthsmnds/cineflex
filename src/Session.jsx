@@ -4,16 +4,14 @@ import styled from "styled-components";
 function Session(props){
         return (
                 <>
-                <Date>Outra-Feira, 31/02/2029</Date>
+                <Date>{props.weekday}, {props.date}</Date>
                         <DivBar></DivBar>
                         <TimeContainer>
-                                <Time>16:40</Time>
-                                <Time>16:40</Time>
-                                <Time>16:40</Time>
-                                <Time>16:40</Time>
-                                <Time>16:40</Time>
-                                <Time>16:40</Time>
-                                <Time>16:40</Time>
+                                {props.showtimes.map((time, i)=>(
+                                        <Time key={i}>
+                                                {time.name}
+                                        </Time>
+                                ))}
                         </TimeContainer>
                 </>
         )

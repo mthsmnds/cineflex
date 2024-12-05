@@ -1,32 +1,46 @@
 //get sessões https://mock-api.driven.com.br/api/v8/cineflex/movies/ID_DO_FILME/showtimes
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components"
 import axios from "axios";
 import Session from "./Session";
-
+import { useParams } from "react-router-dom";
 
 function Sessions(){
-        // const [sessions, setSessions] = useState([]);
+        const [sessions, setSessions] = useState([]);
 
-        // useEffect(()=>{
-        //         const request = axios.get(" https://mock-api.driven.com.br/api/v8/cineflex/movies/ID_DO_FILME/showtimes");
+        const {movieId} = useParams();
+        console.log(movieId);
 
-        //         request.then(res =>{ setSessions(res.data)});
+        useEffect(()=>{
+                const request = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`);
 
-        //         request.catch((error)=> console.log(error.res.data));
-        // }, []);
+                request.then(res =>{ 
+                        console.log("API RESPONSE: ", res.data)
+                        setSessions(res.data.days)});
 
-        // if(sessions === 0){
-        //         return(
-        //                 <p>Loading...</p>
-        //         );
-        // }
+                request.catch((error)=> console.log(error.res.data));
+        }, []);
+
+
+        if(sessions === 0){
+                return(
+                        <div>Loading...</div>
+                );
+        }
 
         return(
-                <SessionBox>
-                        <Session></Session>
-                </SessionBox>
-
+                <>
+                        {sessions.map(session =>(
+                        <SessionBox>
+                                <Session 
+                                key = {session.id}
+                                weekday={session.weekday}
+                                date={session.date}
+                                showtimes={session.showtimes}>
+                                </Session>
+                        </SessionBox>
+                        ))}
+                </>
         )
 }
 

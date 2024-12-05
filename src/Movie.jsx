@@ -11,6 +11,8 @@ function Movie(props){
 
 }
 
+//---------------------STYLES--------------------
+
 const Poster = styled.div`
         margin: 10px;
         position: relative;

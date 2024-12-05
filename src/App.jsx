@@ -3,19 +3,25 @@ import styled from "styled-components";
 import {createGlobalStyle} from "styled-components";
 import NowOn from "./NowOn";
 import Sessions from "./Sessions";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function App() {
   return(
-  <>
-    <GlobalStyle/>
-    <Header>
-       <Logo src="../public/clapper.png" />
-       <h1>Cineflex</h1>
+  <BrowserRouter>
+  <GlobalStyle/>
+      <Header to="/" key="home">
+          <Logo src="../public/clapper.png" />
+                  <h1>Cineflex</h1>
       </Header>
+
       <Title>Em Cartaz</Title>
-      {/* <NowOn></NowOn> */}
-      <Sessions></Sessions>
-  </>
+      <Routes>
+        <Route path="/" element ={<NowOn/>}/>
+        <Route path="/sessoes/:movieId" element ={<Sessions/>}/>
+        
+      </Routes>
+  </BrowserRouter>
   )
 }
 
@@ -30,16 +36,18 @@ function App() {
       }
     `;
 
-    const Header = styled.div`
+    const Header = styled(Link)`
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100vw;
       height: 70px;
       background-color: #EE897F;
+      color: black;
+      text-decoration: none;
       position: fixed;
       z-index: 1;
-
+      
       h1{
         font-size: 34px;
         font-weight: 600;
@@ -48,6 +56,7 @@ function App() {
         margin-top: 5px;
       }
     `;
+
     const Logo = styled.img`
       width: 40px;
     `;

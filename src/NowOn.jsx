@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Movie from "./Movie";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function NowOn(){
         const [movies, setMovies] = useState([]);
@@ -20,17 +22,19 @@ function NowOn(){
 
 if(movies === 0){
         return(
-                <p>Loading...</p>
+                <div>Loading...</div>
         );
 }
 
         return(
                 <Wrapper>
                         {movies.map(movie =>(
+                                 <Linker key={movie.id} to ={`/sessoes/${movie.id}`}>
                                  <Movie key={movie.id} 
                                  title={movie.title} 
                                  posterURL={movie.posterURL} > 
-                                 </Movie>))}
+                                 </Movie>
+                                 </Linker>))}
                 </Wrapper>
         );
 }
@@ -41,6 +45,10 @@ const Wrapper = styled.ul`
         justify-content: space-evenly;
         margin: 20px;
         `
+
+const Linker = styled(Link)`
+
+`
 
 export default NowOn;
 
