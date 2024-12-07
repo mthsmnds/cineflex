@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function Session(props){
         return (
@@ -8,9 +9,9 @@ function Session(props){
                         <DivBar></DivBar>
                         <TimeContainer>
                                 {props.showtimes.map((time, i)=>(
-                                        <Time key={i}>
-                                                {time.name}
-                                        </Time>
+                                        <Linker key={i} to={`/assentos/${time.id}`}>
+                                        <Time>{time.name}</Time>
+                                        </Linker>
                                 ))}
                         </TimeContainer>
                 </>
@@ -54,4 +55,7 @@ const Time = styled.p`
         }
 `
 
+const Linker = styled(Link)`
+    text-decoration: none;
+`;
 export default Session;

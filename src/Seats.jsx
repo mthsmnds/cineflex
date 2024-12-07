@@ -6,13 +6,12 @@ import styled from "styled-components";
 
 function Seats(){
             const [seats, setSeats] = useState([]);
-            console.log(seats);
-
             const [details, setDetails] = useState(null);
-
             const {sessionId} = useParams();
-
             const [selected, setSelected] = useState([]);
+            const [user, setUser] = useState("");
+            const [cpf, setCpf] = useState("");
+            const nav = useNavigate();
 
             const handleSelect = (seatId) =>{
                         if(selected.includes(seatId)){
@@ -26,6 +25,7 @@ function Seats(){
               axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${sessionId}/seats`)
                   .then((res) => {
                       setSeats(res.data.seats);
+                      console.log(res.data.seats);
                       setDetails({
                           title: res.data.movie.title,
                           weekday: res.data.day.weekday,
@@ -38,55 +38,52 @@ function Seats(){
 
             
 //--------------------BookSeats------------------
-          
-            const [user, setUser] = useState("");
-            const [cpf, setCpf] = useState("");
-            const navigate = useNavigate();
 
-            function bookSeats(event){
+   function bookSeats(event){
                         event.preventDefault();
 
                         const bookingData ={selected, user, cpf, details};
 
                         const req = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", {
-                                    ids: seats.name,
+                                    ids: selected,
                                     name: user ,
                                     cpf: cpf,
                         });
 
-                        req.then(() => navigate("/sucesso", {state: bookingData}));
+                        req.then(() => nav("/sucesso", {state: bookingData}));
                         req.catch(error=>console.log(error.data));
-            }
+            };
+
 
 //------------------------------------PAGE------------------------------
 
-            return(
-                        <>
-                                    <Title>Selecione o(s) assento(s)</Title>
-                                    <SeatBox>
-                                                {seats.map(seat =>(
-                                                            <Seat
-                                                            key = {seat.id}
-                                                            id = {seat.id}
-                                                            isAvailable ={seat.isAvailable}
-                                                            isSelected = {selected.includes(seat.id)}
-                                                            onClick ={() =>handleSelect(seat.id)}
-                                                            >{seat.name}            
-                                                            </Seat>
-                                                ))}
-                                    </SeatBox>
-                                    <DivBar></DivBar>
-                                    <Container>
-                                                <InputField onSubmit ={bookSeats}>
-                                                            <label htmlFor ="name">Nome do comprador(a)</label>
-                                                            <input type = "text"  id = "name" placeholder="Digite seu nome..." value = {user} onChange = {e=> setUser(e.target.value)} required/>
-                                                            <label htmlFor ="cpf">CPF do comprador(a)</label>
-                                                            <input type = "text" id = "cpf" placeholder="Digite seu CPF..." value = {cpf} onChange = {e=> setCpf(e.target.value)} required/>
-                                                <BookButton type ="submit">Reservar assento(s)</BookButton>
-                                                </InputField>
-                                    </Container>
-                        </>
-            )
+  return(
+    <>
+      <Title>Selecione o(s) assento(s)</Title>
+        <SeatBox>
+          {seats.map(seat =>(
+            <Seat
+            key = {seat.id}
+            id = {seat.id}
+            isAvailable ={seat.isAvailable}
+            isSelected = {selected.includes(seat.id)}
+            onClick ={() =>handleSelect(seat.id)}
+            >{seat.name}            
+            </Seat>
+           ))}
+        </SeatBox>
+        <DivBar></DivBar>
+        <Container>
+         <InputField onSubmit ={bookSeats}>
+          <label htmlFor ="name">Nome do comprador(a)</label>
+          <input type = "text"  id = "name" placeholder="Digite seu nome..." value = {user} onChange = {e=> setUser(e.target.value)} required/>
+          <label htmlFor ="cpf">CPF do comprador(a)</label>
+          <input type = "text" id = "cpf" placeholder="Digite seu CPF..." value = {cpf} onChange = {e=> setCpf(e.target.value)} required/>
+           <BookButton type ="submit">Reservar assento(s)</BookButton>
+        </InputField>
+        </Container>
+  </>
+    )
 };
 
 export default Seats;

@@ -1,6 +1,6 @@
 //post reservar https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Final(){
         const location = useLocation();
@@ -12,6 +12,7 @@ function Final(){
             return(
                         <>
                         <Title>Pedido finalizado!</Title>
+                        <Container>
                         <Infobox>
                                     <InfoTitle>Filme e sessão</InfoTitle>
                                     <DivBar></DivBar>
@@ -32,6 +33,8 @@ function Final(){
                                         CPF: {cpf}
                                     </Info>
                         </Infobox>
+                        <ReturnButton to={"/"}>Voltar para a tela inicial</ReturnButton>
+                        </Container>
                         </>
             )
 };
@@ -57,7 +60,6 @@ const DivBar = styled.div`
 const Infobox = styled.div`
         background-color: #2B2D36;
         border-radius: 8px;
-        margin: 30px;
 `
 
 const InfoTitle = styled.h1`
@@ -77,3 +79,26 @@ const Info = styled.p`
             padding-bottom: 10px;
             line-height: 32px;
 `
+
+const ReturnButton = styled(Link)`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Sarala;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+            height: 30px;
+            background-color: #EE897F;
+            color: #2B2D36;
+
+`
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 30px;
+    `
