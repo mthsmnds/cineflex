@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import {createGlobalStyle} from "styled-components";
-import NowOn from "./NowOn";
-import Sessions from "./Sessions";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+import NowOn from "./NowOn";
+import Sessions from "./Sessions";
+import Seats from "./Seats";
+import Final from "./Final";
 
 function App() {
+  
   return(
   <BrowserRouter>
   <GlobalStyle/>
@@ -14,12 +17,11 @@ function App() {
           <Logo src="../public/clapper.png" />
                   <h1>Cineflex</h1>
       </Header>
-
-      <Title>Em Cartaz</Title>
       <Routes>
         <Route path="/" element ={<NowOn/>}/>
         <Route path="/sessoes/:movieId" element ={<Sessions/>}/>
-        
+        <Route path="/assentos/:sessionId" element ={<Seats/>}/>
+        <Route path="/sucesso" element ={<Final/>}/>
       </Routes>
   </BrowserRouter>
   )
@@ -61,13 +63,5 @@ function App() {
       width: 40px;
     `;
 
-    const Title = styled.div`
-    font-family: "Sarala", sans-serif;
-      display: flex;
-      justify-content: center;
-      padding-top: 90px;
-      font-size: 24px ;
-      font-weight: 500;
-    `;
 
 export default App;

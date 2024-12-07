@@ -30,6 +30,7 @@ function Sessions(){
 
         return(
                 <>
+                <Title>Selecione o horário</Title>
                         {sessions.map(session =>(
                         <SessionBox>
                                 <Session 
@@ -52,6 +53,16 @@ const SessionBox = styled.div`
         border-radius: 8px;
         margin: 30px;
 `
+
+
+const Title = styled.div`
+font-family: "Sarala", sans-serif;
+  display: flex;
+  justify-content: center;
+  padding-top: 90px;
+  font-size: 24px ;
+  font-weight: 500;
+`;
 
 
 export default Sessions;

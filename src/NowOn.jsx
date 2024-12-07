@@ -27,6 +27,8 @@ if(movies === 0){
 }
 
         return(
+                <>
+                <Title>Em Cartaz</Title>
                 <Wrapper>
                         {movies.map(movie =>(
                                  <Linker key={movie.id} to ={`/sessoes/${movie.id}`}>
@@ -36,6 +38,7 @@ if(movies === 0){
                                  </Movie>
                                  </Linker>))}
                 </Wrapper>
+                </>
         );
 }
 
@@ -47,8 +50,15 @@ const Wrapper = styled.ul`
         `
 
 const Linker = styled(Link)`
-
 `
+const Title = styled.div`
+font-family: "Sarala", sans-serif;
+  display: flex;
+  justify-content: center;
+  padding-top: 90px;
+  font-size: 24px ;
+  font-weight: 500;
+`;
 
 export default NowOn;
 
