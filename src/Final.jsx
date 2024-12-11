@@ -5,7 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 function Final(){
         const location = useLocation();
         const {state} = location || {};
-        const {selected, user, cpf, details} = state || {};
+        const {seats, user, cpf, details} = state || {};
+        console.log(details)
 
         if(!state){return <p>Nenhuma informação encontrada!</p>};
 
@@ -18,13 +19,12 @@ function Final(){
                                     <DivBar></DivBar>
                                     <Info>
                                         {details.title} <br/>
-                                        {details.weekday} <br/>
-                                        {details.time}
+                                        {details.weekday} às {details.time}
                                     </Info>
                                     <InfoTitle>Ingressos</InfoTitle>
                                     <DivBar></DivBar>
                                     <Info>
-                                        {selected.map((seat) => `Assento ${seat}`)}
+                                        {seats.map((seat) => `Assento ${seat} `)}
                                     </Info>
                                     <InfoTitle>Comprador(a)</InfoTitle>
                                     <DivBar></DivBar>

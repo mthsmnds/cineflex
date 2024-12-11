@@ -42,7 +42,11 @@ function Seats(){
    function bookSeats(event){
                         event.preventDefault();
 
-                        const bookingData ={selected, user, cpf, details};
+                        const selectedSeatsNames = seats
+                        .filter((seat) => selected.includes(seat.id))
+                        .map((seat) => seat.name);
+
+                        const bookingData ={seats: selectedSeatsNames, user, cpf, details};
 
                         const req = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", {
                                     ids: selected,
@@ -105,7 +109,7 @@ const SeatBox = styled.div`
 `;
 
 const Seat = styled.p`
-            font-family: Roboto;
+            font-family: "Roboto", sans-serif;
             font-size: 11px;
             color: #4E5A65;
             display: flex;
@@ -159,7 +163,7 @@ const InputField = styled.form`
 `
 
 const BookButton = styled.button`
-            font-family: Sarala;
+            font-family: "Sarala", sans-serif;
             font-weight: 700;
             width: 100%;
             height:40px;
